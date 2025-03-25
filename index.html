@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head><title>example</title></head>
+    <body>
+        <div>
+            <p>---------PETROL-----------</p>
+            
+            <span class="">Start</span>
+            <input class="start_ms" type="text">
+            <span class="">End</span>
+            <input class="end_ms" type="text">
+            <p>Testing: </p>
+            <input class="testing_ms" type="text">
+            <p>Liters: </p>
+            <p class="liters_ms"></p>
+            <p>Expected MS Price: </p>
+            <p class="expected_ms"></p>
+            <button
+            onclick="
+            calMS();
+            "
+            >Calculate</button>
+            
+        </div>
+        <div>
+            <p>----------DIESEL-----------</p>
+            <span>Start</span>
+            <input class="start_hsd" type="text">
+            <span>End</span>
+            <input class="end_hsd" type="text">
+            <p>Testing: </p>
+            <input class="testing_hsd" type="text">
+            <p>Liters: </p>
+            <p class="liters_hsd"></p>
+            <p>Expected HSD Price: </p>
+            <p class="expected_hsd"></p>
+            <button
+            onclick="
+            calHSD();
+            "
+            >Calculate</button>
+        </div>
+        <div>
+            <div>
+                <p>Oil:</p>
+                <input class="oil" type="text" placeholder="In 'ml'">
+                <button
+                onclick="
+                oilPriceExp();
+                "
+                >Enter</button>
+                <p>Oil Price:</p>
+                <p class="oil_Price"></p>
+                <!--<p>Expected Price + Oil:</p>
+                <p class="oilExpPrice"></p>-->
+            </div>
+            
+            <p>Total Expected Price: </p>
+            <p class="expected_price"></p>
+
+            
+            <span>Hand Cash: </span>
+            <input class="handcash" type="text">
+            <span>Phonepe: </span>
+            <input class="phonepe" type="text">
+            <p>Oil:</p>
+            <input class="oil_actual" type="text" placeholder="In 'ml'">
+            <button 
+            onclick="
+            oilPriceAct();
+            "
+            >Enter</button>
+            <p>Oil Price</p>
+            <p class="oilPriceact"></p>
+           
+            <p>Total Actual Price: </p>
+            <p class="totactualprice"></p>
+            <button
+            onclick="
+            totActualCash();
+            final();
+            "
+            >Calculate</button>
+        </div>
+        <div>
+            <p>Total: </p>
+            <p class="Finalvalue"></p>
+
+        </div>
+        
+
+        <script>
+            
+            let hsdPrice=0;
+            let msPrice=0;
+
+            function calMS(){
+                const startMS=document.querySelector('.start_ms');
+                let startms=Number(startMS.value);
+                const endMS=document.querySelector('.end_ms');
+                let endms=Number(endMS.value);
+                const add=endms-startms;
+                const mstest=document.querySelector('.testing_ms');
+                let msTestValue=Number(mstest.value);
+                const totMSliter=add-msTestValue;
+                console.log(msTestValue);
+                document.querySelector('.liters_ms').innerHTML=`${totMSliter}`;
+                
+                msPrice=totMSliter*96.25;
+                document.querySelector('.expected_ms').innerHTML=`₹${msPrice}`;
+                
+                
+            }
+
+                let expected=0;
+            function calHSD(){
+                const startHSD=document.querySelector('.start_hsd');
+                let starthsd=Number(startHSD.value);
+                const endHSD=document.querySelector('.end_hsd');
+                let endhsd=Number(endHSD.value);
+                const add2=endhsd-starthsd;
+                const hsdtest=document.querySelector('.testing_hsd');
+                let hsdTestValue=Number(hsdtest.value);
+                const totHSDliter=add2-hsdTestValue;
+                console.log(hsdTestValue);
+                document.querySelector('.liters_hsd').innerHTML=`${totHSDliter}`;
+                
+                hsdPrice=totHSDliter*86.47;
+                document.querySelector('.expected_hsd').innerHTML=`₹${hsdPrice}`;
+                expected=hsdPrice+msPrice;
+                document.querySelector('.expected_price').innerHTML=`₹${expected}`;
+
+            }
+
+            let actualPrice=0;
+
+            function totActualCash(){
+                const handCash=document.querySelector('.handcash');
+                let handcash=Number(handCash.value);
+                console.log(handcash);
+                const phonePe=document.querySelector('.phonepe');
+                let phonepe=Number(phonePe.value);
+                console.log(phonepe);
+                actualPrice=handcash+phonepe;
+                document.querySelector('.totactualprice').innerHTML=`₹${actualPrice}`;
+            }
+            let finalTot=0;
+            function final(){
+                finalTot=expected-actualPrice;
+                document.querySelector('.Finalvalue').innerHTML=`₹${finalTot}`;
+                console.log(finalTot)
+            }
+
+            let oilValue=0;
+            let expOilRate=0;
+            function oilPriceExp(){
+                let oilExp=document.querySelector('.oil');
+                oilValueExp=Number(oilExp.value);
+                let oilRateExp=oilValueExp*0.3;
+                document.querySelector('.oil_Price').innerHTML=`₹${oilRateExp}`;
+                expOilRate=expected+oilRateExp;
+                document.querySelector('.expected_price').innerHTML=`₹${expOilRate}`;
+                
+            }
+            function oilPriceAct(){
+                let oilAct=document.querySelector('.oil_actual');
+                oilValueAct=Number(oilAct.value);
+                let oilRateAct=oilValueAct*0.3;
+                document.querySelector('.oilPriceact').innerHTML=`₹${oilRateAct}`;
+                actOilRate=actualPrice+oilRateAct;
+                document.querySelector('.FinalValue').innerHTML=`₹${actOilRate}`;
+                
+            }
+            
+        </script>
+    </body>
+</html>
